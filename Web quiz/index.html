@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZIFY - Platform Quiz Interaktif</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            color: #1a1a1a;
+            background:
+                linear-gradient(to bottom,
+                    rgba(255,255,255,0.55) 0%,
+                    rgba(250,244,240,0.35) 35%,
+                    rgba(255,255,255,0.9) 100%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1080' viewBox='0 0 1920 1080'%3E%3Crect width='1920' height='1080' fill='%23f4f1ef'/%3E%3Cpath d='M0 700 Q200 620 420 690 T860 660 T1300 700 T1700 640 T1920 690 V1080 H0 Z' fill='%23e8e3e0' opacity='0.7'/%3E%3Cpath d='M0 760 Q260 690 520 760 T1020 740 T1520 780 T1920 730 V1080 H0 Z' fill='%23d8d2ce' opacity='0.55'/%3E%3Cpath d='M0 840 Q300 780 620 850 T1180 830 T1700 870 T1920 830 V1080 H0 Z' fill='%23c9c3c0' opacity='0.4'/%3E%3C/svg%3E"),
+                linear-gradient(to bottom, #eceae8 0%, #f7f4f2 50%, #ffffff 100%);
+            background-size: cover;
+            background-position: center top;
+            background-attachment: fixed;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Navigasi Landing Page */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 6%;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.25s ease;
+        }
+
+        .nav-links a:hover {
+            color: #1a1a1a;
+        }
+
+        /* Hero Landing Page */
+        .landing-hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 140px 20px 60px;
+        }
+
+        .landing-hero h1 {
+            font-size: clamp(2.2rem, 4.5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 25px;
+            letter-spacing: -1px;
+        }
+
+        .landing-hero h1 .highlight {
+            background: linear-gradient(90deg, #e8701a, #f59a3f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-landing-join {
+            display: inline-block;
+            padding: 16px 50px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #fff;
+            background: linear-gradient(135deg, #e8701a, #d95f0e);
+            border: none;
+            border-radius: 14px;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(232, 112, 26, 0.35);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-landing-join:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 14px 32px rgba(232, 112, 26, 0.45);
+        }
+
+        .landing-hero p.subtitle {
+            margin-top: 28px;
+            max-width: 720px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            line-height: 1.7;
+        }
+
+        /* Section Pendukung */
+        .landing-section {
+            padding: 80px 8%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .landing-section h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #1a1a1a;
+        }
+
+        .landing-section h2 span {
+            color: #e8701a;
+        }
+
+        /* Kotak Deskripsi Tentang Kami (Diratakan Kanan-Kiri / Justify) */
+        .about-description-box {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+            text-align: justify; /* Membuat teks rata kanan kiri */
+            line-height: 1.9;
+            color: #333;
+            font-size: 1.02rem;
+        }
+
+        .about-description-box p {
+            margin-bottom: 16px;
+            text-align: justify; /* Memastikan setiap paragraf rata kanan kiri */
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 16px;
+            padding: 25px 22px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+        }
+
+        .info-card .icon {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+
+        .info-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .info-card p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 720px;
+            margin: 20px auto 0;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            background: rgba(255,255,255,0.85);
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 14px;
+            padding: 20px 24px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+            text-align: left;
+        }
+
+        footer {
+            text-align: center;
+            padding: 34px 20px;
+            font-size: 0.9rem;
+            color: #888;
+            border-top: 1px solid rgba(0,0,0,0.06);
+            background: rgba(255,255,255,0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CONTAINER UTAMA -->
+    <div class="app-container">
+        
+        <!-- ================= HALAMAN 1: LANDING PAGE (VIEW HOME) ================= -->
+        <div id="view-home" class="view active">
+            <!-- NAVBAR -->
+            <nav>
+                <a href="#" class="logo">QUIZIFY</a>
+                <ul class="nav-links">
+                    <li><a href="#tentang">Tentang Kami</a></li>
+                    <li><a href="#cara">Cara Menggunakan</a></li>
+                    <li><a href="#" onclick="switchView('view-login')" style="color: #e8701a; font-weight: 700;"><i class="fa-solid fa-right-to-bracket"></i> Login</a></li>
+                </ul>
+            </nav>
+
+            <!-- HERO -->
+            <header class="landing-hero">
+                <h1>Selamat Datang<br><span class="highlight">Di QUIZIFY</span></h1>
+                <button onclick="switchView('view-login')" class="btn-landing-join">JOIN QUIZIFY</button>
+                <p class="subtitle">
+                    Platform quiz interaktif dengan peringkat realtime, bank soal, anti-cheat, dan impor hasil CSV/Excel. Uji pengetahuanmu sekarang!
+                </p>
+            </header>
+
+            <!-- TENTANG KAMI -->
+            <section id="tentang" class="landing-section">
+                <h2>Tentang <span>Kami</span></h2>
+                
+                <div class="about-description-box">
+                    <p><strong>Website Quizify</strong> merupakan platform kuis online yang dirancang untuk memudahkan penyelenggaraan kuis secara interaktif, efektif, dan transparan. Website ini menyediakan berbagai fitur pendukung, seperti <strong>Realtime Ranking</strong> untuk menampilkan peringkat peserta secara langsung, <strong>Anti-Cheat</strong> untuk membantu menjaga kejujuran selama kuis berlangsung, serta <strong>Bank Soal</strong> untuk memudahkan pengelolaan dan penyimpanan pertanyaan.</p>
+                    <p>Selain itu, tersedia fitur ekspor hasil dalam format CSV atau Excel untuk mempermudah pengolahan dan evaluasi nilai peserta. Dengan fitur-fitur tersebut, website ini diharapkan dapat menjadi solusi praktis bagi penyelenggara kuis dalam menciptakan pengalaman kuis yang lebih terstruktur, kompetitif, dan mudah dikelola.</p>
+                    <p><strong>Visi:</strong> Menjadi platform kuis online yang praktis, interaktif, dan mendukung kompetisi yang jujur.</p>
+                    <p><strong>Misi:</strong> Menyediakan fitur pengelolaan soal, pemantauan peringkat secara langsung, dan rekapitulasi hasil kuis yang mudah digunakan.</p>
+                    <p><strong>Tujuan:</strong> Membantu penyelenggara mengelola kuis dengan lebih efisien serta memberikan pengalaman kuis yang menarik bagi peserta.</p>
+                </div>
+
+                <div class="card-grid">
+                    <div class="info-card">
+                        <div class="icon">⚡</div>
+                        <h3>Realtime Ranking</h3>
+                        <p>Peringkat peserta diperbarui secara langsung, membuat kompetisi makin seru dan transparan.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="icon">🛡️</div>
+                        <h3>Anti-Cheat</h3>
+                        <p>Kuis otomatis mendeteksi ketika peserta keluar dari halaman untuk menjaga kejujuran.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="icon">📚</div>
+                        <h3>Bank Soal</h3>
+                        <p>Kelola soal dengan mudah — tambah, simpan, dan ambil kembali soal dari bank soal kapan saja.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="icon">📊</div>
+                        <h3>Ekspor Hasil</h3>
+                        <p>Unduh rekap nilai seluruh peserta dalam format CSV/Excel dengan satu klik mudah.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CARA MENGGUNAKAN -->
+            <section id="cara" class="landing-section">
+                <h2>Cara Menggunakan <span>Quizify</span></h2>
+                <div class="steps-container">
+                    <div class="step-item">
+                        <div>
+                            <h3 style="color: #e8701a; margin-bottom: 4px;">1. Buat atau Masuk Akun</h3>
+                            <p>Login sebagai Guru untuk membuat kuis atau sebagai Murid untuk bergabung.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div>
+                            <h3 style="color: #e8701a; margin-bottom: 4px;">2. Kelola & Terbitkan Kuis</h3>
+                            <p>Buat soal manual atau ambil dari Bank Soal, lalu terbitkan untuk mendapatkan kode sesi unik.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div>
+                            <h3 style="color: #e8701a; margin-bottom: 4px;">3. Mulai Kuis & Pantau</h3>
+                            <p>Murid bergabung menggunakan kode sesi, sementara guru memantau leaderboard secara real-time.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FOOTER -->
+            <footer>
+                &copy; 2026 QUIZIFY All rights reserved. Created by DAS DIGITAL KREATIF<br>
+                Contact us dasstoredigital@gmail.com 
+            </footer>
+        </div>
+
+        <!-- ================= HALAMAN REGISTRASI ================= -->
+        <div id="view-register" class="view">
+            <div class="form-card animate-pop">
+                <h2><i class="fa-solid fa-user-plus"></i> Buat Akun Baru</h2>
+                <p>Daftar sebagai Guru atau Murid.</p>
+                <input type="text" id="reg-name" placeholder="Nama Lengkap">
+                <input type="email" id="reg-email" placeholder="Email Aktif">
+                <input type="password" id="reg-pass" placeholder="Password (minimal 6 karakter)">
+                
+                <div class="input-group" style="text-align: left; margin-bottom: 15px;">
+                    <label style="font-size: 14px; font-weight: 600; color: #64748b;">Pilih Peran (Role):</label>
+                    <select id="reg-role" style="width: 100%; padding: 12px; border-radius: 12px; border: 2px solid #e2e8f0; margin-top: 5px;">
+                        <option value="student">Murid</option>
+                        <option value="teacher">Guru</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" onclick="handleRegister()">Daftar Sekarang</button>
+                <button class="btn btn-secondary" onclick="switchView('view-home')">Kembali ke Beranda</button>
+            </div>
+        </div>
+
+        <!-- ================= HALAMAN LOGIN ================= -->
+        <div id="view-login" class="view">
+            <div class="form-card animate-pop">
+                <h2><i class="fa-solid fa-right-to-bracket"></i> Login Akun</h2>
+                <p>Masukkan email dan password akun Anda.</p>
+                <input type="email" id="login-email" placeholder="Email Anda">
+                <input type="password" id="login-pass" placeholder="Password">
+                <button class="btn btn-primary" onclick="handleLogin()">Masuk</button>
+                <button class="btn btn-secondary" onclick="switchView('view-register')" style="margin-top: 5px;">Belum punya akun? Daftar</button>
+                <button class="btn btn-secondary" onclick="switchView('view-home')" style="margin-top: 5px;">Kembali ke Beranda</button>
+            </div>
+        </div>
+
+        <!-- ================= HALAMAN GURU: DASHBOARD BUAT SOAL ================= -->
+        <div id="view-teacher-dashboard" class="view">
+            <div class="dashboard-card animate-pop">
+                <div class="dash-header">
+                    <h2><i class="fa-solid fa-list-check"></i> Buat Kuis Baru</h2>
+                    <button class="btn-icon-danger" onclick="switchView('view-home')"><i class="fa-solid fa-right-from-bracket"></i> Keluar</button>
+                </div>
+                
+                <div style="margin-bottom: 15px; text-align: left;">
+                    <button class="btn btn-secondary" onclick="openQuestionBank()"><i class="fa-solid fa-folder-open"></i> Kelola Bank Soal</button>
+                </div>
+
+                <div class="input-group">
+                    <label>Judul Kuis</label>
+                    <input type="text" id="quiz-title" placeholder="Contoh: Kuis Matematika Dasar">
+                </div>
+
+                <div id="questions-container">
+                    <!-- Soal dinamis kuis -->
+                </div>
+
+                <div class="dash-actions" style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+                    <button class="btn btn-secondary" onclick="addQuestionField()"><i class="fa-solid fa-plus"></i> Tambah Soal Manual</button>
+                    <button class="btn btn-secondary" onclick="openBankPicker()" style="background-color: #6366f1; color: white;"><i class="fa-solid fa-box-archive"></i> Ambil dari Bank Soal</button>
+                    <button class="btn btn-primary" onclick="publishQuiz()"><i class="fa-solid fa-cloud-arrow-up"></i> Terbitkan Kuis</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= HALAMAN GURU: BANK SOAL ================= -->
+        <div id="view-teacher-bank" class="view">
+            <div class="dashboard-card animate-pop">
+                <div class="dash-header">
+                    <h2><i class="fa-solid fa-boxes-stacked"></i> Bank Soal Guru</h2>
+                    <button class="btn btn-secondary" onclick="switchView('view-teacher-dashboard')"><i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard</button>
+                </div>
+
+                <div class="form-card" style="margin-bottom: 20px; text-align: left;">
+                    <h3><i class="fa-solid fa-plus"></i> Tambah Soal ke Bank</h3>
+                    <div class="input-group" style="margin-bottom: 15px;">
+                        <label style="font-weight: 600;">Kategori / Topik Soal</label>
+                        <input type="text" id="bank-category" placeholder="Contoh: Matematika Dasar, Biologi Sel">
+                    </div>
+
+                    <div id="bank-questions-container">
+                        <!-- Form Soal Bank Dinamis -->
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 15px;">
+                        <button type="button" class="btn btn-secondary" onclick="addBankQuestionField()" style="flex: 1;"><i class="fa-solid fa-plus"></i> Tambah Form Soal</button>
+                        <button type="button" class="btn btn-primary" onclick="saveToQuestionBank()" style="flex: 1;"><i class="fa-solid fa-floppy-disk"></i> Simpan Semua ke Bank Soal</button>
+                    </div>
+                </div>
+
+                <h3 style="text-align: left; margin-top: 25px;">Daftar Soal Tersimpan</h3>
+                <div id="bank-questions-list" style="max-height: 300px; overflow-y: auto; text-align: left; margin-top: 10px;"></div>
+            </div>
+        </div>
+
+        <!-- ================= HALAMAN GURU: PILIH SOAL DARI BANK SOAL ================= -->
+        <div id="view-bank-picker" class="view">
+            <div class="dashboard-card animate-pop">
+                <div class="dash-header">
+                    <h2><i class="fa-solid fa-hand-pointer"></i> Pilih Soal dari Bank Soal</h2>
+                    <button class="btn btn-secondary" onclick="switchView('view-teacher-dashboard')">Tutup / Kembali</button>
+                </div>
+                <p>Pilih soal di bawah ini untuk dimasukkan ke kuis:</p>
+                <div id="picker-questions-list" style="max-height: 400px; overflow-y: auto; text-align: left;"></div>
+            </div>
+        </div>
+
+        <!-- ================= HALAMAN GURU: LIVE LEADERBOARD ================= -->
+        <div id="view-teacher-live" class="view">
+            <div class="live-card animate-pop">
+                <h2><i class="fa-solid fa-tower-broadcast"></i> Sesi Kuis Aktif</h2>
+                <div class="session-code-box">
+                    <span>Kode Sesi Murid:</span>
+                    <h1 id="display-session-code">...</h1>
+                </div>
+                <h3>Papan Peringkat Langsung (Real-time)</h3>
+                <div id="live-leaderboard" class="leaderboard-list"></div>
+                
+                <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
+                    <button class="btn btn-primary" onclick="exportLeaderboardToCSV()" style="background-color: #10b981;">
+                        <i class="fa-solid fa-file-excel"></i> Unduh Rekap Nilai (CSV)
+                    </button>
+                    <button class="btn btn-secondary" onclick="switchView('view-home')">Akhiri Sesi / Keluar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= HALAMAN MURID: GABUNG ================= -->
+        <div id="view-student-join" class="view">
+            <div class="form-card animate-pop">
+                <h2><i class="fa-solid fa-rocket"></i> Gabung Kuis</h2>
+                <p>Masukkan nama lengkap dan kode sesi dari guru Anda.</p>
+                <input type="text" id="student-name" placeholder="Nama Lengkap Kamu">
+                <input type="text" id="session-code-input" placeholder="Kode Sesi (Contoh: A8F2)">
+                <button class="btn btn-primary" onclick="joinQuiz()">Mulai Mengerjakan!</button>
+                <button class="btn btn-secondary" onclick="switchView('view-home')">Kembali</button>
+            </div>
+        </div>
+
+        <!-- ================= HALAMAN MURID: QUIZ ================= -->
+        <div id="view-student-quiz" class="view">
+            <div class="quiz-card animate-pop">
+                <div class="quiz-header-info">
+                    <span id="question-tracker">Soal 1 dari 10</span>
+                    <span id="student-score-badge"><i class="fa-solid fa-star"></i> Poin: <span id="current-points">0</span></span>
+                </div>
+                
+                <h3 id="question-text">Pertanyaan akan muncul di sini?</h3>
+
+                <div class="options-grid" id="options-grid"></div>
+            </div>
+        </div>
+
+        <!-- ================= HALAMAN MURID: SELESAI ================= -->
+        <div id="view-student-finish" class="view">
+            <div class="finish-card animate-pop">
+                <div class="trophy-icon"><i class="fa-solid fa-trophy"></i></div>
+                <h2>Kuis Selesai! Kerja Bagus!</h2>
+                <p>Skor Akhir Kamu:</p>
+                <h1 id="final-score" class="score-highlight">0 Poin</h1>
+                
+                <h3>Papan Peringkat Kelas</h3>
+                <div id="final-leaderboard" class="leaderboard-list"></div>
+                <button class="btn btn-primary" onclick="switchView('view-home')">Selesai / Keluar</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Firebase SDK & Auth -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

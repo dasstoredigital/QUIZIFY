@@ -1,0 +1,156 @@
+:root {
+    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --card-bg: #ffffff;
+    --text-color: #2d3748;
+    --primary: #6366f1;
+    --primary-hover: #4f46e5;
+    --secondary: #f3f4f6;
+    --accent-pink: #ec4899;
+    --accent-yellow: #f59e0b;
+    --accent-green: #10b981;
+    --accent-blue: #3b82f6;
+    --danger: #ef4444;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-color);
+    padding: 20px;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 650px;
+}
+
+/* Sifat Tampilan (View Control) */
+.view {
+    display: none;
+}
+.view.active {
+    display: block;
+}
+
+/* Animasi Muncul Card */
+@keyframes popIn {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+.animate-pop {
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Desain Umum Card */
+.hero-card, .form-card, .dashboard-card, .live-card, .quiz-card, .finish-card {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 24px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    text-align: center;
+}
+
+.logo-icon, .trophy-icon {
+    font-size: 50px;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+.trophy-icon {
+    color: var(--accent-yellow);
+}
+
+h1 { font-size: 32px; font-weight: 800; color: var(--primary); margin-bottom: 10px; }
+h1 .dot { color: var(--accent-pink); }
+h2 { font-size: 24px; font-weight: 700; margin-bottom: 15px; color: #1e293b; }
+p { color: #64748b; font-size: 14px; margin-bottom: 25px; }
+
+/* Input & Form */
+input {
+    width: 100%;
+    padding: 14px 18px;
+    margin-bottom: 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.2s;
+}
+input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* Tombol Colorful */
+.btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.1s, filter 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+.btn:active { transform: scale(0.98); }
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-student { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; }
+.btn-teacher { background: linear-gradient(135deg, #ec4899, #be185d); color: white; }
+.btn-secondary { background: var(--secondary); color: #475569; }
+.btn-secondary:hover { background: #e2e8f0; }
+
+.role-buttons { display: flex; flex-direction: column; gap: 10px; }
+
+/* Dashboard Guru & Soal Builder */
+.dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.btn-icon-danger { background: #fee2e2; color: var(--danger); border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: 600;}
+#questions-container { max-height: 350px; overflow-y: auto; text-align: left; margin-bottom: 20px; padding-right: 5px; }
+.question-builder-item { background: #f8fafc; border: 1px solid #e2e8f0; padding: 15px; border-radius: 12px; margin-bottom: 15px; }
+.question-builder-item input { margin-bottom: 8px; }
+
+/* Pilihan Ganda Murid (Colorful Options) */
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
+}
+.option-btn {
+    padding: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s, filter 0.2s;
+}
+.option-btn:hover { filter: brightness(1.1); transform: translateY(-2px); }
+.option-btn:nth-child(1) { background: var(--accent-pink); }
+.option-btn:nth-child(2) { background: var(--accent-blue); }
+.option-btn:nth-child(3) { background: var(--accent-yellow); }
+.option-btn:nth-child(4) { background: var(--accent-green); }
+
+/* Leaderboard */
+.leaderboard-list { max-height: 200px; overflow-y: auto; margin: 15px 0; text-align: left; }
+.leaderboard-item { display: flex; justify-content: space-between; background: #f8fafc; padding: 10px 15px; border-radius: 8px; margin-bottom: 8px; font-weight: 600; }
+.session-code-box { background: #f0fdf4; border: 2px dashed #10b981; padding: 15px; border-radius: 12px; margin: 15px 0; }
+.session-code-box h1 { color: #059669; letter-spacing: 3px; margin: 5px 0 0 0; }
+.quiz-header-info { display: flex; justify-content: space-between; font-weight: 600; color: #64748b; margin-bottom: 15px; }
+.score-highlight { font-size: 36px; color: var(--accent-yellow); margin: 10px 0; }
