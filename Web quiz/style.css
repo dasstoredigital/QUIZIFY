@@ -154,41 +154,55 @@ input:focus {
 .session-code-box h1 { color: #059669; letter-spacing: 3px; margin: 5px 0 0 0; }
 .quiz-header-info { display: flex; justify-content: space-between; font-weight: 600; color: #64748b; margin-bottom: 15px; }
 .score-highlight { font-size: 36px; color: var(--accent-yellow); margin: 10px 0; }
-
 /* ==========================================
-   PERBAIKAN KHUSUS NAVBAR ATAS SAJA DI HP
+   PERBAIKAN NAVBAR HP: JARAK RAPI & TAMPILAN KANAN
    ========================================== */
 @media (max-width: 768px) {
-    header.navbar, .navbar-container, nav.main-nav {
+    /* Navbar utama tempat menu atas berada */
+    header.navbar, .navbar-container, nav.main-nav, header {
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
-        flex-wrap: nowrap !important;
-        overflow-x: auto !important; /* Menu atas bisa digeser di HP */
-        white-space: nowrap !important;
+        gap: 20px !important; /* Memberi jarak aman antara Logo dan Menu */
+        padding: 12px 16px !important;
         width: 100% !important;
-        -webkit-overflow-scrolling: touch;
+        box-sizing: border-box !important;
     }
 
-    header.navbar .logo, .navbar-brand {
+    /* Logo QUIZIFY di kiri */
+    header.navbar .logo, .navbar-brand, header h1, header h2 {
+        margin-right: 20px !important; /* Mencegah menu 'Tentang Kami' menempel ke logo */
         flex-shrink: 0 !important;
-        margin-right: 15px !important;
+        font-size: 1.3rem !important;
     }
 
-    .nav-links, .menu-items {
+    /* Container pembungkus menu (Tentang Kami, Cara Menggunakan, Login) */
+    .nav-links, .menu-items, nav ul {
         display: flex !important;
-        gap: 15px !important;
-        flex-shrink: 0 !important;
-        white-space: nowrap !important;
+        align-items: center !important;
+        gap: 15px !important; /* Jarak antar tombol agar rapi */
+        overflow-x: auto !important; /* Supaya bisa digeser ke samping */
+        white-space: nowrap !important; /* Mencegah teks turun baris */
+        max-width: 100% !important;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 2px;
     }
 
-    .nav-links a, .menu-items a {
+    /* Teks link menu */
+    .nav-links a, .menu-items a, nav a {
         white-space: nowrap !important;
-        font-size: 0.9rem !important;
+        font-size: 0.85rem !important;
+        flex-shrink: 0 !important;
     }
 
-    .btn-login, #login-btn {
-        flex-shrink: 0 !important;
+    /* Tombol Login agar muncul sejajar di samping Cara Menggunakan */
+    .btn-login, #login-btn, nav button, .nav-links .btn {
+        display: inline-flex !important;
+        align-items: center !important;
         white-space: nowrap !important;
+        flex-shrink: 0 !important; /* Memastikan tombol login tidak tersembunyi */
+        font-size: 0.85rem !important;
+        padding: 6px 14px !important;
+        margin: 0 !important;
     }
 }
