@@ -17,10 +17,10 @@
         body {
             min-height: 100vh;
             color: #1a1a1a;
-            background:
-                linear-gradient(to bottom,
-                    rgba(255,255,255,0.55) 0%,
-                    rgba(250,244,240,0.35) 35%,
+            background: 
+                linear-gradient(to bottom, 
+                    rgba(255,255,255,0.55) 0%, 
+                    rgba(250,244,240,0.35) 35%, 
                     rgba(255,255,255,0.9) 100%),
                 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1080' viewBox='0 0 1920 1080'%3E%3Crect width='1920' height='1080' fill='%23f4f1ef'/%3E%3Cpath d='M0 700 Q200 620 420 690 T860 660 T1300 700 T1700 640 T1920 690 V1080 H0 Z' fill='%23e8e3e0' opacity='0.7'/%3E%3Cpath d='M0 760 Q260 690 520 760 T1020 740 T1520 780 T1920 730 V1080 H0 Z' fill='%23d8d2ce' opacity='0.55'/%3E%3Cpath d='M0 840 Q300 780 620 850 T1180 830 T1700 870 T1920 830 V1080 H0 Z' fill='%23c9c3c0' opacity='0.4'/%3E%3C/svg%3E"),
                 linear-gradient(to bottom, #eceae8 0%, #f7f4f2 50%, #ffffff 100%);
@@ -149,7 +149,7 @@
             color: #e8701a;
         }
 
-        /* Kotak Deskripsi Tentang Kami (Diratakan Kanan-Kiri / Justify) */
+        /* Kotak Deskripsi Tentang Kami */
         .about-description-box {
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(8px);
@@ -158,7 +158,7 @@
             padding: 35px;
             margin-bottom: 40px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.05);
-            text-align: justify; /* Membuat teks rata kanan kiri */
+            text-align: justify;
             line-height: 1.9;
             color: #333;
             font-size: 1.02rem;
@@ -166,7 +166,7 @@
 
         .about-description-box p {
             margin-bottom: 16px;
-            text-align: justify; /* Memastikan setiap paragraf rata kanan kiri */
+            text-align: justify;
         }
 
         .card-grid {
@@ -229,6 +229,34 @@
             color: #888;
             border-top: 1px solid rgba(0,0,0,0.06);
             background: rgba(255,255,255,0.5);
+        }
+
+        /* ==========================================
+           PENYESUAIAN KHUSUS LAYAR HP (TIDAK KEPOTONG & RAPAT)
+           ========================================== */
+        @media (max-width: 768px) {
+            .landing-hero {
+                min-height: auto !important;
+                padding: 100px 15px 30px !important;
+            }
+
+            .landing-hero h1 {
+                font-size: 1.85rem !important;
+                line-height: 1.25 !important;
+                margin-bottom: 12px !important;
+            }
+
+            .btn-landing-join {
+                padding: 12px 35px !important;
+                font-size: 1rem !important;
+                margin-bottom: 12px !important;
+            }
+
+            .landing-hero p.subtitle {
+                margin-top: 0 !important;
+                font-size: 0.9rem !important;
+                line-height: 1.5 !important;
+            }
         }
     </style>
 </head>
