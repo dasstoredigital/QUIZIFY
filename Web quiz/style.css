@@ -154,3 +154,51 @@ input:focus {
 .session-code-box h1 { color: #059669; letter-spacing: 3px; margin: 5px 0 0 0; }
 .quiz-header-info { display: flex; justify-content: space-between; font-weight: 600; color: #64748b; margin-bottom: 15px; }
 .score-highlight { font-size: 36px; color: var(--accent-yellow); margin: 10px 0; }
+
+/* ==========================================
+   PERBAIKAN TAMPILAN NAVBAR DI LAYAR HP
+   ========================================== */
+@media (max-width: 768px) {
+    /* Navbar utama */
+    .navbar, nav, header {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 10px 15px !important;
+        overflow-x: auto !important; /* Membuat menu bisa digeser ke samping */
+        white-space: nowrap !important; /* Mencegah teks turun ke baris baru */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Logo Quizify */
+    .logo, .navbar-brand, header h1, header h2 {
+        font-size: 1.2rem !important;
+        margin-right: 15px !important;
+        flex-shrink: 0 !important; /* Mencegah logo gepeng/tertekan */
+    }
+
+    /* Container pembungkus menu navigasi */
+    .nav-links, .menu, nav ul {
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Item menu & teks (Tentang Kami & Cara Menggunakan) */
+    .nav-links a, .menu a, nav a {
+        white-space: nowrap !important; /* Memastikan teks tetap 1 baris */
+        font-size: 0.85rem !important;
+        padding: 4px 6px !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Tombol Login */
+    .btn-login, #login-btn, nav button, .nav-links .btn {
+        white-space: nowrap !important;
+        font-size: 0.85rem !important;
+        padding: 6px 12px !important;
+        flex-shrink: 0 !important; /* Mencegah tombol terpotong */
+    }
+}
